@@ -1,0 +1,51 @@
+[package]
+name = "quakebot"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.25.1", features = ["rt-multi-thread"] }
+futures-core = { version = "0.3.13", default-features = false } # for async in general
+futures-util = { version = "0.3.13", default-features = false } # for async in general
+once_cell = { version = "1.7.2", default-features = false, features = ["std"] } # to store and set user data
+poise_macros = { path = "macros", version = "0.5.7" } # remember to update the version on changes!
+async-trait = { version = "0.1.48", default-features = false } # various traits
+regex = { version = "1.6.0", default-features = false, features = ["std"] } # prefix
+log = { version = "0.4.14", default-features = false } # warning about weird state
+derivative = "2.2.0"
+parking_lot = "0.12.1"
+poise = "0.5.7"
+futures = "0.3.13"
+zmq = "0.10.0"
+
+[dependencies.serenity]
+default-features = false
+features = ["builder", "client", "gateway", "model", "utils", "collector"]
+version = "0.11.5"
+
+[features]
+default = ["serenity/rustls_backend", "cache", "chrono", "handle_panics"]
+chrono = ["serenity/chrono"]
+cache = ["serenity/cache"]
+time = ["serenity/time"]
+# No-op feature because serenity/collector is now enabled by default
+collector = []
+# Enables support for handling panics inside commands via FrameworkError::CommandPanic.
+# This feature has no overhead and can always be enabled.
+# This feature exists because some users want to disable the mere possibility of catching panics at
+# build time for peace of mind.
+handle_panics = []
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "doc_nightly"]
+
+[dependencies.uuid]
+version = "1.5.0"
+features = [
+    "v4",                # Lets you generate random UUIDs
+    "fast-rng",          # Use a faster (but still sufficiently random) RNG
+    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
+]
