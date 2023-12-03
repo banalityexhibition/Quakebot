@@ -1,5 +1,5 @@
 # Quakebot
-Serenity based bot for controlling quake live servers. 
+Serenity based Discord bot for controlling quake live servers. 
 
 ## Current Features 
 * Autocomplete
